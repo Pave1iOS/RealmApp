@@ -115,8 +115,9 @@ extension TaskListViewController {
             .setTextField(withPlaceholder: "List Title", andText: taskList?.title)
             .addAction(title: taskList != nil ? "Update List" : "Save List", style: .default) { [unowned self] newValue, _ in
                 if let taskList, let completion {
-                    storageManager.edit(taskList, newValue: newValue)
+                    storageManager.edit(taskList, firstValue: newValue)
                     completion()
+                    
                     return
                 }
                 

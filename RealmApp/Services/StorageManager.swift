@@ -48,9 +48,23 @@ final class StorageManager {
         }
     }
     
-    func edit(_ taskList: TaskList, newValue: String) {
+    func edit(
+        _ taskList: TaskList? = nil,
+        task: Task? = nil,
+        firstValue: String? = nil,
+        secondValue: String? = nil
+    ) {
+        
+        guard let taskList = taskList else { return }
+        guard let task = task else { return }
+        guard let firstValue = firstValue else { return }
+        guard let secondValue = secondValue else { return }
+        
         write {
-            taskList.title = newValue
+            taskList.title = firstValue
+            
+//            task.note = firstValue
+            task.title = secondValue
         }
     }
 

@@ -55,8 +55,11 @@ final class TasksViewController: UITableViewController {
         return cell
     }
     
-    @objc private func addButtonPressed() {
-        showAlert()
+    // MARK: UITableViewDelegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let task = taskList.tasks[indexPath.row]
+        showAlert(with: task)
     }
 
 }
@@ -76,7 +79,12 @@ extension TasksViewController {
                 style: .default
             ) { [unowned self] taskTitle, taskNote in
                 if let task, let completion {
-                    // TODO: - edit task
+//                    storageManager.edit(task: task) { _, task in
+//                        task.title = taskTitle
+//                        task.note = taskNote
+//                    }
+//                    
+//                    completion()
                     return
                 }
                 createTask(withTitle: taskTitle, andNote: taskNote)
@@ -93,4 +101,10 @@ extension TasksViewController {
             tableView.insertRows(at: [rowIndex], with: .automatic)
         }
     }
+    
+    @objc private func addButtonPressed() {
+        showAlert()
+    }
+    
+    
 }
