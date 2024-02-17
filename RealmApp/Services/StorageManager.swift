@@ -41,30 +41,31 @@ final class StorageManager {
         }
     }
     
-    func delete(_ taskList: TaskList) {
+    func delete(_ taskList: TaskList? = nil, task: Task? = nil) {
+        guard let taskList = taskList else { return }
+        guard let task = task else { return }
+        
         write {
+            
             realm.delete(taskList.tasks)
             realm.delete(taskList)
+            
+            
         }
     }
     
     func edit(
-        _ taskList: TaskList? = nil,
+        taskList: TaskList? = nil,
         task: Task? = nil,
-        firstValue: String? = nil,
-        secondValue: String? = nil
+        newTitle: String? = nil,
+        newNote: String? = nil
     ) {
         
-        guard let taskList = taskList else { return }
-        guard let task = task else { return }
-        guard let firstValue = firstValue else { return }
-        guard let secondValue = secondValue else { return }
-        
         write {
-            taskList.title = firstValue
+            taskList?.title = newTitle ?? ""
             
-//            task.note = firstValue
-            task.title = secondValue
+            task?.title = newTitle ?? ""
+            task?.note = newNote ?? ""
         }
     }
 
