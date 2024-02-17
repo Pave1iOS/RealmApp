@@ -55,7 +55,7 @@ final class TaskListViewController: UITableViewController {
         let taskList = taskLists[indexPath.row]
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] _, _, _ in
-            storageManager.delete(taskList)
+            storageManager.delete(taskList: taskList)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
@@ -67,7 +67,7 @@ final class TaskListViewController: UITableViewController {
         }
         
         let doneAction = UIContextualAction(style: .normal, title: "Done") { [unowned self] _, _, isDone in
-            storageManager.done(taskList)
+            storageManager.done(taskList: taskList)
             tableView.reloadRows(at: [indexPath], with: .automatic)
             isDone(true)
         }

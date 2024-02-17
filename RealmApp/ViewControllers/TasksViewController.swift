@@ -60,8 +60,8 @@ final class TasksViewController: UITableViewController {
     // MARK: UITableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let task = taskList.tasks[indexPath.row]
-        showAlert(with: task)
+//        let task = taskList.tasks[indexPath.row]
+//        showAlert(with: task)
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

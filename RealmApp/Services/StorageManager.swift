@@ -41,16 +41,15 @@ final class StorageManager {
         }
     }
     
-    func delete(_ taskList: TaskList? = nil, task: Task? = nil) {
-        guard let taskList = taskList else { return }
-        guard let task = task else { return }
+    func delete(taskList: TaskList? = nil, task: Task? = nil) {
         
         write {
-            
-            realm.delete(taskList.tasks)
-            realm.delete(taskList)
-            
-            
+            if taskList != nil {
+                realm.delete(taskList?.tasks ?? List<Task>())
+                realm.delete(taskList ?? TaskList())
+            } else if task != nil {
+                realm.delete(task ?? Task())
+            }
         }
     }
     
@@ -60,18 +59,19 @@ final class StorageManager {
         newTitle: String? = nil,
         newNote: String? = nil
     ) {
-        
         write {
-            taskList?.title = newTitle ?? ""
-            
-            task?.title = newTitle ?? ""
-            task?.note = newNote ?? ""
+            if taskList != nil {
+                taskList?.title = newTitle ?? ""
+            } else if task != nil {
+                task?.title = newTitle ?? ""
+                task?.note = newNote ?? ""
+            }
         }
     }
 
-    func done(_ taskList: TaskList) {
+    func done(taskList: TaskList? = nil, task: Task? = nil) {
         write {
-            taskList.tasks.setValue(true, forKey: "isComplete")
+            taskList?.tasks.setValue(true, forKey: "isComplete")
         }
     }
 
